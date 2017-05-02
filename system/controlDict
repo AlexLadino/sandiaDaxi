@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application reactingFoam;
+application rhoReactingFoam;
 
 // startFrom       startTime;
 startFrom       latestTime;
@@ -47,7 +47,7 @@ runTimeModifiable yes;
 
 adjustTimeStep  yes;
 
-maxCo		0.5;
+maxCo		0.4;
 
 
 // ************************************************************************* //
