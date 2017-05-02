@@ -1,0 +1,134 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+|*---------------------------------------------------------------------------*|
+|* OpenFOAM for Windows 17.02 (v1)                                           *|
+|* Built by CFD Support, www.cfdsupport.com (based on Symscape).             *|
+\*---------------------------------------------------------------------------*/
+Build  : 3.0.x-495c0feff174
+Exec   : C:\OpenFOAM\17.02\cygwin64\opt\OpenFOAM\OpenFOAM-3.0.x\platforms\cygwin64mingw-w64DPInt32Opt\bin\blockMesh.exe
+Date   : Apr 20 2017
+Time   : 19:08:19
+Host   : "EIME-351-2012"
+PID    : 11776
+Case   : C:/OpenFOAM/17.02/EIME-351-3.0.x/run/tutorials/combustion/reactingFoam/04M1.sDFlame3D_1
+nProcs : 1
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Creating block mesh from
+    "C:/OpenFOAM/17.02/EIME-351-3.0.x/run/tutorials/combustion/reactingFoam/04M1.sDFlame3D_1/system/blockMeshDict"
+Creating curved edges
+Creating topology blocks
+Creating topology patches
+
+Creating block mesh topology
+
+Check topology
+
+	Basic statistics
+		Number of internal faces : 24
+		Number of boundary faces : 30
+		Number of defined boundary faces : 30
+		Number of undefined boundary faces : 0
+	Checking patch -> block consistency
+
+Creating block offsets
+Creating merge list .
+
+Creating polyMesh from blockMesh
+Creating patches
+Creating cells
+Creating points with scale 0.001
+    Block 0 cell size :
+        i : 0.000106066 .. 0.000106066
+        j : 0.000106066 .. 0.000106066
+        k : 0.000474052 .. 0.0237026
+
+    Block 1 cell size :
+        i : 0.000105 .. 0.000105
+        j : 0.000106066 .. 0.000106066
+        k : 0.000474052 .. 0.0237026
+
+    Block 2 cell size :
+        i : 0.000105 .. 0.000105
+        j : 0.000106066 .. 0.000106066
+        k : 0.000474052 .. 0.0237026
+
+    Block 3 cell size :
+        i : 0.000105 .. 0.000105
+        j : 0.000106066 .. 0.000106066
+        k : 0.000474052 .. 0.0237026
+
+    Block 4 cell size :
+        i : 0.000105 .. 0.000105
+        j : 0.000106066 .. 0.000106066
+        k : 0.000474052 .. 0.0237026
+
+    Block 5 cell size :
+        i : 8.02647e-005 .. 0.000642117
+        j : 0.000282671 .. 0.000282671
+        k : 0.000474052 .. 0.0237026
+
+    Block 6 cell size :
+        i : 8.02647e-005 .. 0.000642117
+        j : 0.000282671 .. 0.000282671
+        k : 0.000474052 .. 0.0237026
+
+    Block 7 cell size :
+        i : 8.02647e-005 .. 0.000642117
+        j : 0.000282671 .. 0.000282671
+        k : 0.000474052 .. 0.0237026
+
+    Block 8 cell size :
+        i : 8.02647e-005 .. 0.000642117
+        j : 0.000282671 .. 0.000282671
+        k : 0.000474052 .. 0.0237026
+
+    Block 9 cell size :
+        i : 0.000502079 .. 0.0100416
+        j : 0.000714529 .. 0.000714529
+        k : 0.000474052 .. 0.0237026
+
+    Block 10 cell size :
+        i : 0.000502079 .. 0.0100416
+        j : 0.000714529 .. 0.000714529
+        k : 0.000474052 .. 0.0237026
+
+    Block 11 cell size :
+        i : 0.000502079 .. 0.0100416
+        j : 0.000714529 .. 0.000714529
+        k : 0.000474052 .. 0.0237026
+
+    Block 12 cell size :
+        i : 0.000502079 .. 0.0100416
+        j : 0.000714529 .. 0.000714529
+        k : 0.000474052 .. 0.0237026
+
+
+Writing polyMesh
+----------------
+Mesh Information
+----------------
+  boundingBox: (-0.075 -0.075 0) (0.075 0.075 0.6)
+  nPoints: 529341
+  nCells: 520000
+  nFaces: 1569200
+  nInternalFaces: 1550800
+----------------
+Patches
+----------------
+  patch 0 (start: 1550800 size: 2000) name: Jet
+  patch 1 (start: 1552800 size: 1600) name: Pilot
+  patch 2 (start: 1554400 size: 1600) name: Coflow
+  patch 3 (start: 1556000 size: 5200) name: Outlet
+  patch 4 (start: 1561200 size: 8000) name: FarField
+
+End
+

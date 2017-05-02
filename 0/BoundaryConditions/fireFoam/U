@@ -1,0 +1,55 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.0                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    location    "0";
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform (0 0 0);
+UJet		28.05;//V_Jet3D=49.6; [m/s]
+UPilot		22.74;//V_Pilot3D=11.4;[m/s]
+UCoflow		11.89;//V_Coflow3D=0.9; [m/s]
+
+boundaryField
+{
+    Jet
+    {
+        type            fixedValue;
+        value           uniform (0 $UJet 0);
+    }
+    Pilot
+    {
+        type            fixedValue;
+        value           uniform (0 $UPilot 0);
+    }
+    Coflow
+    {
+        type            fixedValue;
+        value           uniform (0 $UCoflow 0);
+    }
+    Outlet
+    {
+        type            pressureInletOutletVelocity;
+        value           $internalField;
+    }
+    FarField
+    {
+        type            pressureInletOutletVelocity;
+	value           $internalField;       
+    }
+}
+
+
+// ************************************************************************* //

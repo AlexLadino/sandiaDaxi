@@ -1,0 +1,86 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.0                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      thermophysicalProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+thermoType
+{
+    type            heRhoThermo;
+//     mixture         multiComponentMixture;
+    mixture         reactingMixture;
+    transport       sutherland;
+    thermo          janaf;
+    energy          sensibleEnthalpy;
+    equationOfState perfectGas;
+    specie          specie;
+}
+
+inertSpecie N2;
+
+chemistryReader foamChemistryReader;
+
+foamChemistryFile "$FOAM_CASE/constant/reactions";
+
+/*
+Valid reaction types are :
+{
+reactions
+{
+    methaneReaction
+    {
+        type     irreversibleArrheniusReaction;
+        reaction "CH4 + 2O2 = CO2 + 2H2O";
+        A        5.2e16;
+        beta     0;
+        Ta       14906;
+    }
+}
+}
+irreversibleArrheniusLindemannChemicallyActivatedReaction
+irreversibleArrheniusLindemannFallOffReaction
+irreversibleArrheniusReaction
+irreversibleArrheniusSRIChemicallyActivatedReaction
+irreversibleArrheniusSRIFallOffReaction
+irreversibleArrheniusTroeChemicallyActivatedReaction
+irreversibleArrheniusTroeFallOffReaction
+irreversibleJanevReaction
+irreversibleLandauTellerReaction
+irreversibleLangmuirHinshelwoodReaction
+irreversibleinfiniteReaction
+irreversiblepowerSeriesReaction
+irreversiblethirdBodyArrheniusReaction
+nonEquilibriumReversibleArrheniusReaction
+nonEquilibriumReversibleLandauTellerReaction
+nonEquilibriumReversibleinfiniteReaction
+nonEquilibriumReversiblethirdBodyArrheniusReaction
+reversibleArrheniusLindemannChemicallyActivatedReaction
+reversibleArrheniusLindemannFallOffReaction
+reversibleArrheniusReaction
+reversibleArrheniusSRIChemicallyActivatedReaction
+reversibleArrheniusSRIFallOffReaction
+reversibleArrheniusTroeChemicallyActivatedReaction
+reversibleArrheniusTroeFallOffReaction
+reversibleJanevReaction
+reversibleLandauTellerReaction
+reversibleLangmuirHinshelwoodReaction
+reversibleinfiniteReaction
+reversiblepowerSeriesReaction
+reversiblethirdBodyArrheniusReaction
+*/
+
+foamChemistryThermoFile "$FOAM_CASE/constant/thermo.compressibleGas";
+
+
+// ************************************************************************* //

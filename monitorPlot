@@ -1,0 +1,21 @@
+#!/bin/bash
+echo " Oprima la tecla "s" para guardar la grafica"
+gnuplot -persist monitorPlotScript
+
+
+gnuplot -persist << EOF
+set title "Residuos"
+set xlabel "Interacion"; set ylabel "Residuo"; set logscale y
+set grid
+
+set term png enhanced size 1920,1200
+set output "residualMonitor.png"
+
+plot "< cat log.fireFoam | grep 'Solving for k' | cut -d' ' -f9 | tr -d ','" title 'k' with lines,\
+     "< cat log.fireFoam | grep 'Solving for O2' | cut -d' ' -f9 | tr -d ','" title 'O2' with lines,\
+     "< cat log.fireFoam | grep 'Solving for H2O' | cut -d' ' -f9 | tr -d ','" title 'H2O' with lines,\
+     "< cat log.fireFoam | grep 'Solving for CO2' | cut -d' ' -f9 | tr -d ','" title 'CO2' with lines,\
+     "< cat log.fireFoam | grep 'Solving for CH4' | cut -d' ' -f9 | tr -d ','" title 'CH4' with lines,
+EOF
+
+# "< cat log.reactingFoam | grep 'Solving for p' | cut -d' ' -f9 | tr -d ','" title 'p' with lines,\

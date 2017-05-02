@@ -1,0 +1,78 @@
+#!/bin/bash
+start=$(date +%s.%N)
+cd ${0%/*} || exit 1    # run from this directory
+./cleanCase
+./createMesh
+
+NP=7 #numero de procesadores a utilizar.
+sc=2  #sc=solver code (1=fireFoam; 2=reactingFoam, 3=rhoReactingFoam).
+Tc=2  #Tc=Turbulence code (1=laminar; 2=RANS; 3=LES).
+
+et=0.25 #Tiempo final
+
+# # -----------------------------------------------------------------
+if [ "$sc" -eq "1" ];then
+solver="fireFoam"
+cp system/fvSchemes.fireFoam2 system/fvSchemes
+cp system/fvSolution.fireFoam2 system/fvSolution
+
+cp -r constant/fireFoamConstant/. constant/
+cp -r 0/BoundaryConditions/fireFoam/. 0/
+# cp -r 0/BoundaryConditions/Radiation/. 0/
+fi
+if [ "$sc" -eq "2" ];then
+solver="reactingFoam"
+cp system/fvSchemes.reactingFoam system/fvSchemes
+cp system/fvSolution.reactingFoam system/fvSolution
+
+cp -r constant/reactingFoamConstant/. constant/
+cp -r 0/BoundaryConditions/reactingFoam/. 0/
+fi
+if [ "$sc" -eq "3" ];then
+solver="rhoReactingFoam"
+cp system/fvSchemes.reactingFoam system/fvSchemes
+cp system/fvSolution.reactingFoam system/fvSolution
+
+cp -r constant/rhoReactingFoamConstant/. constant/
+cp -r 0/BoundaryConditions/reactingFoam/. 0/
+fi
+
+sed -i "s/\(^[ \t]*application\).*[0-9]*;.*$/\1 ${solver};/g" system/controlDict
+# sed -i "s/\(^[ \t]*application\).*[0-9]*;.*$/application     ${solver};/g" system/controlDict
+
+sed -i "s/\(.*endTime[ \t]*\)[0-9].*;/\1 $et;/g" system/controlDict
+sed -i "s/\(.*numberOfSubdomains[ \t]*\)[0-9].*;/numberOfSubdomains $NP;/g" system/decomposeParDict
+
+if [ "$Tc" -eq "1" ];then
+Turbulence="laminar"
+fi
+if [ "$Tc" -eq "2" ];then
+Turbulence="RAS"
+cp -r 0/BoundaryConditions/RANS_kepsilon/. 0/
+# cp -r 0/BoundaryConditions/RANS_komegaSST/. 0/
+fi
+if [ "$Tc" -eq "3" ];then
+Turbulence="LES"
+fi
+
+echo " ** Running solver $solver ... simulation type $Turbulence"
+sed -i "s/\(^[ \t]*simulationType\).*[0-9]*;.*$/\1 ${Turbulence};/g" constant/turbulenceProperties
+
+
+. $WM_PROJECT_DIR/bin/tools/RunFunctions # Source tutorial run functions
+runApplication decomposePar
+# Run
+#runApplication `getApplication`
+mpiexec -np $NP `getApplication` -parallel < /dev/null >> log.`getApplication` 2>>log.`getApplication`.err
+
+# runApplication reconstructPar
+# ./createPlot
+echo " ** FERTIG!!!!!----------------------------------------------------------------------------------------"
+
+end=$(date +%s.%N)
+stime=$(bc <<< "$end-$start")
+mtime=$(bc <<< "scale=2; $stime/60")
+htime=$(bc <<< "scale=2; $stime/3600")
+dtime=$(bc <<< "scale=2; $htime/24")
+echo " ** Simulation done in: $stime seconds or $htime hours ($dtime days)."
+# # ----------------------------------------------------------------- end-of-file

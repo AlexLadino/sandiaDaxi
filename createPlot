@@ -1,0 +1,53 @@
+#!/bin/bash
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+foamLog log.`getApplication` >log.foamLog
+# cd logs
+
+gnuplot -persist > /dev/null 2>&1 << EOF
+	set term png enhanced size 1920,1200
+	set output "ImgCo.png"
+
+        set title "Courant Number"
+        set xlabel "Time"; set ylabel "Value"
+	set termoption enhanced; set style func linespoints
+	set grid
+	set style line 1 lt 1 lw 1		
+	set style line 2 lt 1 lc rgb "green" lw 1
+	
+        plot	"logs/CourantMax_0" title "Co_{max}" w lines ls 1,\
+		"logs/CourantMean_0" title "Co_{mean}" w lines ls 2"
+EOF
+
+	
+
+#Descripcción
+#set style line # - lt=line type, lc=line color, lw=line width
+#		    pt=point type, ps=pointer size, pi=pointer interval	
+		
+#-------------------------------------------------------------------------
+#	set term png enhanced size 1920,1200 #or (1280,1024) (1024,768)
+# 	set output "Img.png"	
+
+#	set title "Courant Number"
+#       set xlabel "Time"; set ylabel "Value"
+# 	set termoption enhanced; set style func linespoints
+# 	set xrange [0:1.3]; set grid
+# 	set style line 1 lt 1 lw 1			pt 7 ps 0.5 pi -1
+# 	set style line 2 lt 1 lc rgb "green" lw 1	pt 7 ps 0.5 pi -1
+# 	
+#       plot	"CourantMax_0" title "Co_{max}" w linespoints ls 1,\
+# 		"CourantMean_0" title "Co_{mean}" w linespoints ls 2"
+
+
+# set title "Velocity components"
+# set xlabel "Y-position"
+# set ylabel "Velocity"
+# set yrange [-0.3:0.3]
+# set xtics 0.02
+# set grid xtics noytics
+# set terminal png
+# set output "myPlot.png"
+# plot "cavity/postProcessing/sets/0.5/horizontalLine_U.xy"\
+# using 1:2 every ::5 with lines title "U_X",\
+# "cavity/postProcessing/sets/0.5/horizontalLine_U.xy"\
+# using 1:3 every ::5 with lines title "U_Y"

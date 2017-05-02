@@ -1,0 +1,13 @@
+#!/bin/bash
+cd ${0%/*} || exit 1    # run from this directory
+sed -i "s/\(^[ \t]*stopAt\).*[0-9]*;.*$/\1	writeNow;/g" system/controlDict
+echo " ** Writting Solution ..."
+
+. $WM_PROJECT_DIR/bin/tools/RunFunctions # Source tutorial run functions
+# ./xParaView
+sleep 30
+
+x="endTime"
+sed -i "s/\(^[ \t]*stopAt\).*[0-9]*;.*$/stopAt		${x};/g" system/controlDict
+echo "Done"
+# # # ----------------------------------------------------------------- end-of-file

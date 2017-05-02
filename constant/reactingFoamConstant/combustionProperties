@@ -1,0 +1,59 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.0                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      combustionProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// combustionModel  noCombustion<psiThermoCombustion>;
+// active  false;
+combustionModel  PaSR<psiChemistryCombustion>;
+active  true;
+
+laminarCoeffs
+{
+}
+
+noCombustionCoeffs
+{
+}
+
+PaSRCoeffs
+{
+    Cmix                0.147;
+//     Cmix                0.5;
+    turbulentReaction   on;
+    useReactionRate     yes;
+}
+
+/*
+Valid  combustionModels for reactingFOAM are : 
+	noCombustion<psiThermoCombustion>
+	infinitelyFastChemistry<psiThermoCombustion,gasHThermoPhysics>
+	diffusion<psiThermoCombustion,constGasEThermoPhysics>
+	infinitelyFastChemistry<psiThermoCombustion,constGasEThermoPhysics>
+	PaSR<psiChemistryCombustion>
+	laminar<psiChemistryCombustion>
+	FSD<psiThermoCombustion,constGasHThermoPhysics>
+	infinitelyFastChemistry<psiThermoCombustion,constGasHThermoPhysics>
+	diffusion<psiThermoCombustion,gasEThermoPhysics>
+	diffusion<psiThermoCombustion,constGasHThermoPhysics>
+	diffusion<psiThermoCombustion,gasHThermoPhysics>
+	infinitelyFastChemistry<psiThermoCombustion,gasEThermoPhysics>
+	FSD<psiThermoCombustion,gasEThermoPhysics>
+	FSD<psiThermoCombustion,constGasEThermoPhysics>
+	FSD<psiThermoCombustion,gasHThermoPhysics>
+*/
+
+
+// ************************************************************************* //

@@ -1,0 +1,21 @@
+#!/bin/bash
+#Operaciones aritmeticas con punto lfotante solo funcionan para bash no sh.
+startM=$(date +%s.%N)
+cd ${0%/*} || exit 1    # run from this directory
+
+# ./cleanCase
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+runApplication blockMesh
+runApplication checkMesh
+
+cp system/fvSchemes.reactingFoam system/fvSchemes
+cp system/fvSolution.reactingFoam system/fvSolution
+
+# ./xParaView
+endM=$(date +%s.%N) 
+
+stimeM=$(bc <<< "$endM-$startM")
+mtimeM=$(bc <<< "scale=2; $stimeM/60")
+echo " ** Mesh created in: $stimeM seconds, $mtimeM minutes."

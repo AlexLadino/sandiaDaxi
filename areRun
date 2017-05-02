@@ -1,0 +1,44 @@
+# !/bin/sh
+#Para continuar la simulación desde el ultimo punto guardado.
+cd ${0%/*} || exit 1    # run from this directory
+
+#Hacer código que vaya al Allrun y busque estos datos.
+NP=16 #numero de procesadores a utilizar.
+sc=3  #sc=solver code (1=fireFoam; 2=reactingFoam, 3=rhoReactingFoam).
+
+et=0.5 #Tiempo final
+
+sed -i "s/\(.*endTime[ \t]*\)[0-9].*;/\1 $et;/g" system/controlDict
+if [ "$sc" -eq "1" ];then
+solver="fireFoam"
+fi
+if [ "$sc" -eq "2" ];then
+solver="reactingFoam"
+fi
+if [ "$sc" -eq "3" ];then
+solver="rhoReactingFoam"
+fi
+echo " ** Re-Running solver $solver ... until t=$et s"
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+mkdir -p alt.data
+cp *.png log.* alt.data
+# rm log.reconstructPar
+
+runApplication decomposePar >> log.decomposePar
+mpirun --allow-run-as-root -np $NP `getApplication` -parallel < /dev/null >> log.`getApplication` 2>>log.`getApplication`.err
+
+# runApplication reconstructPar
+# ./createPlot
+# rm log.paraFoam > /dev/null
+# runApplication paraFoam -builtin &
+# ----------------------------------------------------------------- end-of-file
+
+# directory_name="alt.data"
+# if [ -d $directory_name ]
+# then
+#     echo "Directory already existing"
+# else
+#     mkdir $directory_name
+# fi
