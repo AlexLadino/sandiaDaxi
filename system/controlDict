@@ -21,21 +21,7 @@ application rhoReactingFoam;
 startFrom       latestTime;
 // startTime       0;
 
-stopAt		endTime;
-
-endTime		     0.25;
-
-deltaT          1e-5;
-
-writeControl    adjustableRunTime;
-
-writeInterval   2e-3;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  6;
+stopAt		en
 
 writeCompression off;
 
